@@ -1,0 +1,12 @@
+html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+  }
+  body {
+    font-size: 1.6rem;
+    background-color:rgb(211, 208, 208);
+  }
+
+  .formularioIngreso{
+    border-radius: 2rem;
+  }

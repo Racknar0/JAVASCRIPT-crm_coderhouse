@@ -57,10 +57,15 @@ function validar(e) { //Funcion ppal del Form
         modelo: modelo,
         fallos: arrFallos,
         diagnostico: diagnostico,
+        id: generarID(),
     };
 
     mostrarSuccess(form);
     sumarUsuarios(usuario);
+}
+
+function generarID(){
+    return new Date().getTime();
 }
 
 function validarVacios(arr) { //validar que no haya campos vacios

@@ -9,4 +9,35 @@ html {
 
   .formularioIngreso{
     border-radius: 2rem;
+    width: 100%;
+
+    
+      
+  }
+
+  @media (min-width: 768px) {
+    .formularioIngreso{
+      width: 70%;
+    }
+  }
+
+  /* bg-danger rounded-3 mt-3 fw-bold text-white text-center fs-5 */
+  .error {
+    background-color: #f44336;
+    border-radius: 5px;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  .success {
+    background-color: #40ff00;
+    border-radius: 5px;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 1.2rem;
   }

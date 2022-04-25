@@ -1,64 +1,216 @@
-'use strict';
+const divResultado = document.getElementById('resultado');
+/************** ( 'DECLARACION DE VARIABLES' ) **************/
 
-//Declaración de Variables
-const usuario = {};
-const arrFallos = [];
+let cantidad;
+const usuarios = [];
+let filtro;
 
-//Declaración de Funciones
-function preguntar(pregunta, keyObj) {
-    let dato;
-    let conversion;
-    do {
-        dato = prompt(`ingrese ${pregunta}`).toLowerCase();
-    } while (dato === '');
+/************** ( 'DECLARACION DE LAS FUNCIONES' ) **************/
 
-    /* validacion phone numer NaN */
-    if (keyObj === 'phoneNumber') {
-        conversion = parseInt(dato);
-        while (isNaN(conversion) || conversion < 1) {
-            alert('Ingrese un valor Numérico Valido');
-            conversion = parseInt(prompt(`ingrese ${pregunta}`));
-        }
-        usuario[keyObj] = conversion;
-        return;
+function preguntar() {
+    const usuario = {};
+
+    usuario.name = preguntaAlUser('el nombre del usuario').toLowerCase();
+    usuario.lastName = preguntaAlUser('el apellido del usuario').toLowerCase();
+
+    //!Verificar que el telefono sea valido1
+    usuario.phoneNumber = parseInt(preguntaAlUser('el telefono del usuario'));
+    while (
+        isNaN(usuario.phoneNumber) ||
+        usuario.phoneNumber < 1 ||
+        usuario.phoneNumber.toString().length !== 10
+    ) {
+        alert(
+            'Ingrese un valor Numérico Valido y con una extension nacional de 10 digitos'
+        );
+        usuario.phoneNumber = parseInt(
+            preguntaAlUser('el telefono del usuario')
+        );
     }
 
-    usuario[keyObj] = dato;
-}
+    usuario.email = preguntaAlUser(
+        'Ingrese el correo del usuario'
+    ).toLowerCase();
+    usuario.brand = preguntaAlUser('Ingrese la marca del equipo').toLowerCase();
+    usuario.model = preguntaAlUser(
+        'Ingrese el modelo del equipo'
+    ).toLowerCase();
 
-
-//Funcion para agregar un array con los fallos detectados
-function fallos (arrFallos, pregunt) {
-    let cantFallos
-    do {
-        cantFallos = parseInt(prompt(`Por favor ingrese ${pregunt}`, 0))
-    } while (isNaN(cantFallos));
-    for (let i = 0; i < cantFallos; i++) {
-        arrFallos[i] = prompt(`Ingrese el ${i + 1} fallo`, '').toLowerCase();
-    }
+    //!Validar Cantidad de Fallos
+    const arrFallos = cantidadFallos();
     usuario.fallos = arrFallos;
+
+    usuario.diagnostic = preguntaAlUser(
+        'Ingrese el diagnostico del equipo',
+        ''
+    ).toLowerCase();
+
+    return usuario;
 }
 
-7
-//Llamado de funciones
-preguntar('el nombre del usuario', 'name');
-preguntar('el apellido del usuario', 'lastName');
-preguntar('el telefono del usuario', 'phoneNumber');
-preguntar('el correo del usuario', 'email');
-preguntar('la marca del equipo', 'brand');
-preguntar('el modelo del equipo', 'model'); 
-fallos(arrFallos , 'la cantidad de fallos detectados')
-preguntar('el diagnostico del equipo', 'diagnostic');
+function cantidadFallos() {
+    const arrFallos = [];
+    let cantidadFallos;
+    cantidadFallos = parseInt(
+        prompt('Ingrese la cantidad de fallos detectados', 0)
+    );
+    while (isNaN(cantidadFallos) || cantidadFallos < 1) {
+        alert('Ingrese un valor Numérico Valido > 1');
+        cantidadFallos = parseInt(
+            prompt('Ingrese la cantidad de fallos detectados', 0)
+        );
+    }
+    for (let index = 0; index < cantidadFallos; index++) {
+        arrFallos[index] = prompt(
+            `Ingrese el ${index + 1} fallo`,
+            ''
+        ).toLowerCase();
+    }
 
-console.log(arrFallos);
-console.log(usuario);
+    return arrFallos;
+}
 
-document.write(`<br>${usuario.name}<br>`)
-document.write(`<br>${usuario.lastName}<br>`)
-document.write(`<br>${usuario.phoneNumber}<br>`)
-document.write(`<br>${usuario.email}<br>`)
-document.write(`<br>${usuario.brand}<br>`)
-document.write(`<br>${usuario.model}<br>`)
-document.write(`<br>${usuario.diagnostic}<br>`)
+function preguntaAlUser(a) {
+    let dato;
+    dato = prompt(`Ingrese ${a}`, '');
+    while (dato === '' || dato === null) {
+        dato = prompt(`Ingrese ${a}`, '');
+    }
+
+    return dato;
+}
+
+function filtroCantidadUsuarios(usuarios) {
+    alert('La cantidad de usuarios ingresados son: ' + usuarios.length);
+}
+
+function filtroRecorrerArray(usuarios) {
+    let i = 1;
+    usuarios.forEach((element) => {
+        alert(`
+        DATOS DEL USUARIO ${i++}
+        El nombre es: ${element.name}
+        El apellido es: ${element.lastName}
+        El telefono es: ${element.phoneNumber}
+        El correo es: ${element.email}
+        La marca es: ${element.brand}
+        El modelo es: ${element.model}
+        La cantidad de fallos es: ${element.fallos.length}
+        El diagnostico es: ${element.diagnostic}
+        `);
+    });
+}
+
+function filtroBuscarUsuario(usuarios, cantidad) {
+    const busqueda = preguntaAlUser(
+        'Ingrese el nombre del usuario a buscar'
+    ).toLowerCase();
+
+    for (let index = 0; index < cantidad; index++) {
+        if (usuarios[index].name === busqueda) {
+            alert('El usuario SI se encuentra');
+            return;
+        }
+    }
+
+    alert('El usuario no existe');
+}
+
+
+function mostrarResultado(usuarios) {
+    /************** ( 'DOM SCRIPTING' ) **************/
+    divResultadoTitulo = document.createElement('h1');
+    divResultadoTitulo.textContent = `Cantidad de usuarios registrados: ${usuarios.length}`;
+    divResultado.appendChild(divResultadoTitulo);
+
+    for (let i = 0; i < usuarios.length; i++) {
+        const divNumeroDelUsuario = document.createElement('h2');
+        divNumeroDelUsuario.textContent = `Usuario Numero ${i + 1}`;
+        divResultado.appendChild(divNumeroDelUsuario);
+
+        const divUsuarioNombre = document.createElement('p');
+        divUsuarioNombre.textContent = `Nombre: ${usuarios[i].name}`;
+        divResultado.appendChild(divUsuarioNombre);
+
+        const divUsuarioApellido = document.createElement('p');
+        divUsuarioApellido.textContent = `Apellido: ${usuarios[i].lastName}`;
+        divResultado.appendChild(divUsuarioApellido);
+
+        const divUsuarioTelefono = document.createElement('p');
+        divUsuarioTelefono.textContent = `Telefono: ${usuarios[i].phoneNumber}`;
+        divResultado.appendChild(divUsuarioTelefono);
+
+        const divUsuarioCorreo = document.createElement('p');
+        divUsuarioCorreo.textContent = `Correo: ${usuarios[i].email}`;
+        divResultado.appendChild(divUsuarioCorreo);
+
+        const divUsuarioMarca = document.createElement('p');
+        divUsuarioMarca.textContent = `Marca: ${usuarios[i].brand}`;
+        divResultado.appendChild(divUsuarioMarca);
+
+        const divUsuarioModelo = document.createElement('p');
+        divUsuarioModelo.textContent = `Modelo: ${usuarios[i].model}`;
+        divResultado.appendChild(divUsuarioModelo);
+
+        const divUsuarioFallos = document.createElement('p');
+        divUsuarioFallos.textContent = `Cantidad de fallos: ${usuarios[i].fallos.length}`;
+        divResultado.appendChild(divUsuarioFallos);
+
+        const divUsuarioDiagnostico = document.createElement('p');
+        divUsuarioDiagnostico.textContent = `Diagnostico: ${usuarios[i].diagnostic}`;
+        divResultado.appendChild(divUsuarioDiagnostico);
+
+        const divUsuarioFecha = document.createElement('p');
+        divUsuarioFecha.textContent = `Fecha:AUN NO CREADA`;
+        divResultado.appendChild(divUsuarioFecha);
+    }
+}
+
+
+/************** ( 'CUERPO DEL CODIGO' ) **************/
+
+cantidad = parseInt(prompt('Ingrese la cantidad de usuarios a registrar', 0));
+
+while (isNaN(cantidad) || cantidad < 1) {
+    alert('Ingrese un valor Numérico Valido');
+    cantidad = parseInt(
+        prompt('Ingrese la cantidad de usuarios a registrar', 0)
+    );
+}
+
+for (let index = 0; index < cantidad; index++) {
+    const usuario = preguntar();
+    usuarios.push(usuario);
+}
+
+filtro = parseInt(prompt('Ingrese la opcion que desea realizar: \n 1. Cantidad de usuarios \n 2. Recorrer los usuarios \n 3. Buscar usuario por nombre', 1));
+
+switch (filtro) {
+    case 1:
+        //Aplicacion de .length
+        filtroCantidadUsuarios(usuarios);
+        break;
+    case 2:
+        //Aplicacion de ForEach
+        filtroRecorrerArray(usuarios);
+        break;
+    case 3:
+        //Aplicacion de Busqueda por nombre
+        filtroBuscarUsuario(usuarios);
+        break;
+
+    default:
+        break;
+}
+
+/* const mostrar = document.querySelector('#mostrar');
+mostrar.addEventListener('click', () => {
+    mostrarResultado(usuarios);
+}); */
+
+
+console.log(usuarios);
+
+
 
 

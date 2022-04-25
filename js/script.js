@@ -102,7 +102,7 @@ function asignarAlLocalStorage(usuarios, usuario) {
     } else {
         let usuariosLS = JSON.parse(localStorage.getItem('usuarios')); //si existe el localStorage
         let nuevosUsuarios = [...usuariosLS, usuario];
-        console.log(nuevosUsuarios);
+       
         localStorage.setItem('usuarios', JSON.stringify(nuevosUsuarios));
     }
 }

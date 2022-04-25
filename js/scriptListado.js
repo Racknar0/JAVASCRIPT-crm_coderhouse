@@ -204,7 +204,7 @@ function mostrarUsuarios(usuarios) {
             };
 
             
-           /*  addUserArray(usuarios ,usuarioNuevo); */
+            addUserArray(usuarios ,usuarioNuevo);
 
         });
 
@@ -218,66 +218,26 @@ function mostrarUsuarios(usuarios) {
 function addUserArray (usuarios, usuarioNuevo) {
 
     let nuevosUsuarios = usuarios.filter(usuario => usuario.id !== usuarioNuevo.id);
-    /* nuevosUsuarios.push(usuarioNuevo); */
-
     nuevosUsuarios = [usuarioNuevo, ...nuevosUsuarios];
 
-    console.log(usuarios);
-    console.log(nuevosUsuarios);
-
-   /*  editarLocalStorage(nuevosUsuarios); */
+    asignarUserNewLS(nuevosUsuarios);
     
 }
 
 
-/* 
-// Boton Eliminar
-const btnEliminar = document.createElement('button');
-btnEliminar.classList.add('btn', 'btn-danger', 'fs-5', 'fw-bold');
-btnEliminar.style.width = '80px';
-btnEliminar.innerHTML = 'Eliminar';
-btnEliminar.addEventListener('click', construccion);
+function asignarUserNewLS(usuarios){
+    localStorage.setItem('usuarios', JSON.stringify(usuarios))
 
-divBotones.appendChild(btnEditar);
-divBotones.appendChild(btnEliminar);
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario modificado con exito!',
+        showConfirmButton: false,
+        timer: 1500
+      })
 
-// Agregar los elementos al DOM
-contenedorUser.appendChild(titulo);
-contenedorUser.appendChild(nombre);
-contenedorUser.appendChild(apellido);
-contenedorUser.appendChild(telefono);
-contenedorUser.appendChild(correo);
-contenedorUser.appendChild(fecha);
-contenedorUser.appendChild(marca);
-contenedorUser.appendChild(modelo);
-contenedorUser.appendChild(fallos);
-contenedorUser.appendChild(diagnostico);
-contenedorUser.appendChild(divBotones);
-contenedorUser.appendChild(divModalEdit);
-
-listado.appendChild(contenedorUser);
-
-
-const form = document.getElementById(`form${i}`);
-
-let nuevoName = document.getElementById(`nombre${i}`).value;
-let nuevoApellido = document.getElementById(`apellido${i}`).value;
-
-
-console.log(nuevoName);
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+     setTimeout(() => {
+        window.location.reload();
+     }, 1500);
     
-    
-    console.log(nuevoName);
-
-
-    const arrNuevoUser = [nuevoName, nuevoApellido, nuevoTelefono, nuevoCorreo, nuevoFecha, nuevaMarca, nuevoModelo, nuevoFallos, nuevoDiagnostico];
-
-    validar(arrNuevoUser)
-});
-
-
-
-}); */
+};

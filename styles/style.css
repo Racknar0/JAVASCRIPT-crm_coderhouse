@@ -1,18 +1,17 @@
 html {
     /* 1rem = 10px */
     font-size: 62.5%;
+    
   }
   body {
     font-size: 1.6rem;
     background-color:rgb(211, 208, 208);
+    font-family: 'Montserrat', sans-serif !important;
   }
 
   .formularioIngreso{
     border-radius: 2rem;
     width: 100%;
-
-    
-      
   }
 
   @media (min-width: 768px) {
@@ -59,5 +58,45 @@ html {
   .divLista{
     height: 100vh;
     overflow-y: scroll;
-
   }
+/* 
+  .divLista::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  
+  .divLista::-webkit-scrollbar-track {
+    background-color: #f1f1f1; 
+  }
+
+  .divLista::-webkit-scrollbar-thumb {
+    background-color: #888; 
+  }
+
+  .divLista::-webkit-scrollbar-thumb:hover {
+    background-color: #555; 
+  }
+
+  .divLista::-webkit-scrollbar-thumb:active {
+    background-color: #555; 
+  } */
+
+
+
+
+  #listado {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    #listado {
+      flex-direction: column;
+      gap: 0rem;
+    }
+  }
+    
+
+
+
+  

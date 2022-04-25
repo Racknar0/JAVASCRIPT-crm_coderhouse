@@ -59,7 +59,7 @@ html {
     height: 100vh;
     overflow-y: scroll;
   }
-/* 
+
   .divLista::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -73,18 +73,19 @@ html {
   }
 
   .divLista::-webkit-scrollbar-thumb:hover {
-    background-color: #555; 
+    background-color: #0b5ed7; 
   }
 
   .divLista::-webkit-scrollbar-thumb:active {
-    background-color: #555; 
-  } */
+    background-color: #07429b; 
+  }
 
 
 
 
   #listado {
     display: flex;
+    justify-content: center;
     gap: 2rem;
     flex-wrap: wrap;
   }
@@ -92,6 +93,7 @@ html {
   @media (max-width: 768px) {
     #listado {
       flex-direction: column;
+      align-items: center;
       gap: 0rem;
     }
   }

@@ -1,18 +1,18 @@
+import {construccion, validarVacios, mostrarError} from './funciones.js';
+
 // Variables
 const listado = document.querySelector('#listado');
 
-usuariosLS = localStorage.getItem('usuarios');
-if(usuariosLS === null || usuariosLS === undefined){ 
+let usuariosLS = localStorage.getItem('usuarios');
+if (usuariosLS === null || usuariosLS === undefined) {
     noHayUsuarios('No hay usuarios registrados');
 } else {
-    usuarios = JSON.parse(usuariosLS);
+    let usuarios = JSON.parse(usuariosLS);
     mostrarUsuarios(usuarios);
 }
 
-
-
 // Funciones
-function noHayUsuarios(mensaje){
+function noHayUsuarios(mensaje) {
     Swal.fire({
         position: 'center',
         icon: 'info',
@@ -22,11 +22,13 @@ function noHayUsuarios(mensaje){
     });
 }
 
-function mostrarUsuarios(usuarios){
-    console.log(usuarios);
-    i = 0;
+// Mostrar Usuarios en el DOM
+function mostrarUsuarios(usuarios) {
+    
+    let i = 0;
 
-    usuarios.forEach(usuario => {
+    // Recorrer el array de usuarios
+    usuarios.forEach((usuario) => {
         const contenedorUser = document.createElement('div');
         contenedorUser.classList.add('contenedor-user');
 
@@ -54,23 +56,99 @@ function mostrarUsuarios(usuarios){
         diagnostico.innerHTML = `<span class="fw-bold">Diagnostico:</span>: ${usuario.diagnostico} <hr>`;
 
         const divBotones = document.createElement('div');
-        divBotones.classList.add('d-flex', 'justify-content-between')
+        divBotones.classList.add('d-flex', 'justify-content-between');
         // Botones
         const btnEditar = document.createElement('button');
         btnEditar.classList.add('btn', 'btn-primary', 'fs-5', 'fw-bold');
         btnEditar.style.width = '80px';
         btnEditar.innerHTML = 'Editar';
-        btnEditar.addEventListener('click', editar)
+        btnEditar.setAttribute('data-target', `#editar${i}`);
+        btnEditar.setAttribute('data-toggle', 'modal');
 
+        // divModal
+        const divModalEdit = document.createElement('div');
+        divModalEdit.innerHTML = `
+        <div class="modal fade" id="editar${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editando Usuario #${i}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                
+                    <form autocomplete="on" id="form${i}" class="formularioIngreso bg-light p-5 shadow-lg">
+                            <div class="form-group">
+                            <label class="editando" for="nombre">Nombres</label>
+                            <input value='${usuario.name}' type="text" class="form-control" id="nombre${i}" aria-describedby="userName" placeholder="Nombre del usuario">
+                            </div>
+                            <div class="form-group">
+                            <label class="editando" for="apellido">Apellidos</label>
+                            <input value='${usuario.apellido}' type="text" class="form-control" id="apellido${i}" aria-describedby="lastName" placeholder="Apellido del usuario">
+                            </div>
+                            <div class="form-group">
+                            <label class="editando" for="telefono">Telefono</label>
+                            <input value='${usuario.telefono}' type="number" class="form-control" id="telefono${i}" placeholder="Numero de telefono del usuario">
+                            </div>
+                            <div class="form-group">
+                            <label class="editando" for="correo">Email</label>
+                            <input value='${usuario.email}' type="email" class="form-control" id="correo${i}" placeholder="Correo del usuario">
+                            </div>
+                            <div class="form-group">
+                            <label class="editando" for="correo">Fecha Ingreso</label>
+                            <input value='${usuario.fecha}' type="date" class="form-control" id="fecha${i}" placeholder="Fecha de ingreso del equipo">
+                            </div>
+                            <div class="form-group">
+                                <label class="editando" for="marca">Marca del Celular</label>
+                                <select id="marca${i}" class="form-select" aria-label="Default select example">
+                                    <option value="samsung">Samsung</option>
+                                    <option value="iphone">Iphone</option>
+                                    <option value="xaomi">Xaomi</option>
+                                    <option value="huawei">Huawei</option>
+                                    <option value="motororola">Motorola</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="editando" for="modelo">Modelo del Celular</label>
+                                <input value='${usuario.modelo}' type="text" class="form-control" id="modelo${i}" aria-describedby="Model" placeholder="Ingresa el Modelo del Equipo">
+                            </div>
+                            <div class="form-group">
+                                <label class="editando" for="fallos">Fallos del Celular</label>
+                                <textarea class="form-control" id="fallos${i}" rows="3" placeholder="escribe los fallos separados por coma">${usuario.fallos}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="editando" for="diagnostico">Diagnostico del Final</label>
+                                <select id="diagnostico${i}" class="form-select" aria-label="Default select example">
+                                <option value="Fuera de Garantia">Fuera de Garantía</option>
+                                <option value="Ingresa a Laboratorio">Cubre Garantía</option>
+                                <option value="No Reproduce Fallo">No Reproduce Fallo 'Devuelto al cliente'</option>
+                                </select>
+                            </div>
+                            <button id="submitEditar-${i}" type="submit" class="btn btn-primary w-100 mt-4 mb-2">Editar en sistema</button>
+                            <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Cancelar Cambios</button>
+                            <div id="divError"></div>
+                        </form>
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        `;
+
+        // Boton Eliminar
         const btnEliminar = document.createElement('button');
         btnEliminar.classList.add('btn', 'btn-danger', 'fs-5', 'fw-bold');
         btnEliminar.style.width = '80px';
-        btnEliminar.innerHTML = 'Editar';
-        btnEliminar.addEventListener('click', eliminar)
+        btnEliminar.innerHTML = 'Eliminar';
+        btnEliminar.addEventListener('click', construccion);
 
         divBotones.appendChild(btnEditar);
-        divBotones.appendChild(btnEliminar);        
-    
+        divBotones.appendChild(btnEliminar);
+
+        // Agregar los elementos al DOM
         contenedorUser.appendChild(titulo);
         contenedorUser.appendChild(nombre);
         contenedorUser.appendChild(apellido);
@@ -82,17 +160,124 @@ function mostrarUsuarios(usuarios){
         contenedorUser.appendChild(fallos);
         contenedorUser.appendChild(diagnostico);
         contenedorUser.appendChild(divBotones);
-        
+        contenedorUser.appendChild(divModalEdit);
 
         listado.appendChild(contenedorUser);
+
+        const form = document.getElementById(`form${i}`);
+        const nuevoName = document.getElementById(`nombre${i}`);
+        const nuevoApellido = document.getElementById(`apellido${i}`);
+        const nuevoTelefono = document.getElementById(`telefono${i}`);
+        const nuevoCorreo = document.getElementById(`correo${i}`);
+        const nuevoFecha = document.getElementById(`fecha${i}`);
+        const nuevaMarca = document.getElementById(`marca${i}`);
+        const nuevoModelo = document.getElementById(`modelo${i}`);
+        const nuevoFallos = document.getElementById(`fallos${i}`);
+        const nuevoDiagnostico = document.getElementById(`diagnostico${i}`);
+
+        
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (validarVacios([nuevoName.value, nuevoApellido.value, nuevoTelefono.value, nuevoCorreo.value, nuevoFecha.value, nuevaMarca.value, nuevoModelo.value, nuevoFallos.value, nuevoDiagnostico.value])) {
+                return mostrarError(
+                    '<p class="text-danger">Todos los campos son obligatorios!</p>'
+                )
+            }
+
+            const arrFallos = nuevoFallos.value
+            .split(',')
+            .map((elem) => elem.toLowerCase().trim());
+            
+            const usuarioNuevo = {
+                name: nuevoName.value,
+                apellido: nuevoApellido.value,
+                telefono: nuevoTelefono.value,
+                email: nuevoCorreo.value,
+                fecha: nuevoFecha.value,
+                marca: nuevaMarca.value,
+                modelo: nuevoModelo.value,
+                fallos: arrFallos,
+                diagnostico: nuevoDiagnostico.value,
+                id: usuario.id,
+            };
+
+            
+           /*  addUserArray(usuarios ,usuarioNuevo); */
+
+        });
+
+    
+        
+        
     });
-
 }
 
-function editar () {
-    Swal.fire('En Construcción')
+
+function addUserArray (usuarios, usuarioNuevo) {
+
+    let nuevosUsuarios = usuarios.filter(usuario => usuario.id !== usuarioNuevo.id);
+    /* nuevosUsuarios.push(usuarioNuevo); */
+
+    nuevosUsuarios = [usuarioNuevo, ...nuevosUsuarios];
+
+    console.log(usuarios);
+    console.log(nuevosUsuarios);
+
+   /*  editarLocalStorage(nuevosUsuarios); */
+    
 }
 
-function eliminar () {
-    Swal.fire('En Construcción')
-}
+
+/* 
+// Boton Eliminar
+const btnEliminar = document.createElement('button');
+btnEliminar.classList.add('btn', 'btn-danger', 'fs-5', 'fw-bold');
+btnEliminar.style.width = '80px';
+btnEliminar.innerHTML = 'Eliminar';
+btnEliminar.addEventListener('click', construccion);
+
+divBotones.appendChild(btnEditar);
+divBotones.appendChild(btnEliminar);
+
+// Agregar los elementos al DOM
+contenedorUser.appendChild(titulo);
+contenedorUser.appendChild(nombre);
+contenedorUser.appendChild(apellido);
+contenedorUser.appendChild(telefono);
+contenedorUser.appendChild(correo);
+contenedorUser.appendChild(fecha);
+contenedorUser.appendChild(marca);
+contenedorUser.appendChild(modelo);
+contenedorUser.appendChild(fallos);
+contenedorUser.appendChild(diagnostico);
+contenedorUser.appendChild(divBotones);
+contenedorUser.appendChild(divModalEdit);
+
+listado.appendChild(contenedorUser);
+
+
+const form = document.getElementById(`form${i}`);
+
+let nuevoName = document.getElementById(`nombre${i}`).value;
+let nuevoApellido = document.getElementById(`apellido${i}`).value;
+
+
+console.log(nuevoName);
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    
+    console.log(nuevoName);
+
+
+    const arrNuevoUser = [nuevoName, nuevoApellido, nuevoTelefono, nuevoCorreo, nuevoFecha, nuevaMarca, nuevoModelo, nuevoFallos, nuevoDiagnostico];
+
+    validar(arrNuevoUser)
+});
+
+
+
+}); */

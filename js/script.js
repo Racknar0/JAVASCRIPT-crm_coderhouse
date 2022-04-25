@@ -1,7 +1,12 @@
+import {construccion, validarVacios, mostrarError} from './funciones.js';
+
 // Variables
 const form = document.querySelector('#form');
 const divError = document.querySelector('#divError');
 let usuarios = [];
+
+/* const usuariosLSC = localStorage.getItem('usuarios');
+console.log(usuariosLSC); */
 
 //evento dom content loaded
 document.addEventListener('DOMContentLoaded', domCargado);
@@ -68,34 +73,9 @@ function generarID(){
     return new Date().getTime();
 }
 
-function validarVacios(arr) { //validar que no haya campos vacios
+/* function validarVacios(arr) { //validar que no haya campos vacios
     return arr.includes('') ? true : false;
-}
-
-function mostrarError(mensaje, error) { //si hay un error
-    let timerInterval;
-    Swal.fire({
-        title: mensaje,
-        html: 'Esta alerta se cerrará en <b></b> milisegundos.',
-        timer: 1500,
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading();
-            const b = Swal.getHtmlContainer().querySelector('b');
-            timerInterval = setInterval(() => {
-                b.textContent = Swal.getTimerLeft();
-            }, 100);
-        },
-        willClose: () => {
-            clearInterval(timerInterval);
-        },
-    }).then((result) => {
-        /* Read more about handling dismissals below */
-        if (result.dismiss === Swal.DismissReason.timer) {
-            /*  console.log('I was closed by the timer'); */
-        }
-    });
-}
+} */
 
 function mostrarSuccess(form) { //si se ingreso correctamente
     Swal.fire({
@@ -110,16 +90,20 @@ function mostrarSuccess(form) { //si se ingreso correctamente
 
 function sumarUsuarios(usuario) {
     usuarios = [usuario, ...usuarios];
-    asignarAlLocalStorage(usuarios);
+
+    console.log(usuario);
+    asignarAlLocalStorage(usuarios, usuario);
 }
 
-function asignarAlLocalStorage(usuarios) {
+function asignarAlLocalStorage(usuarios, usuario) {
     if(localStorage.getItem('usuarios') === null || localStorage.getItem('usuarios') === undefined){ //si no existe el localStorage
+        console.log('No existe el localStorage');
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
     } else {
         let usuariosLS = JSON.parse(localStorage.getItem('usuarios')); //si existe el localStorage
-        usuariosLS = [...usuarios, ...usuariosLS];
-        console.log(usuariosLS);
-        localStorage.setItem('usuarios', JSON.stringify(usuariosLS));
+        let nuevosUsuarios = [...usuariosLS, usuario];
+        console.log(nuevosUsuarios);
+        localStorage.setItem('usuarios', JSON.stringify(nuevosUsuarios));
     }
 }
+

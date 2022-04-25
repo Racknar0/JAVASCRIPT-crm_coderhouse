@@ -41,3 +41,16 @@ html {
     text-align: center;
     font-size: 1.2rem;
   }
+
+  .contenedor-user{
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: 1rem;
+    color: rgb(0, 0, 0);
+    width: 300px;
+    padding: 1rem;
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.45); 
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.45);
+    margin-bottom: 2rem;
+    font-size: 11px;
+  }

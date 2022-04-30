@@ -33,57 +33,23 @@
 <body>
 
   <div class="container containerLista">
-    <div class="bg-primary mt-5 rounded-3">
+    <div class="bg-indigo mt-5">
       <h1 class="text-center pt-5 pb-5 fw-bold text-white">Plataforma de Ingreso Telefonos CRM MoviRack</h1>
     </div>
-    <div class="row mb-5">
+    <div class="row mb-5 contenedor-full">
       <div class="col-md-3 border-bottom pb-5">
-        <h2 class="mt-5 mb-5">Selecciona tu <span class="text-primary fw-bold">Servicio</span></h2>
-
-        <ol>
-          <a href="./index.html">
-            <li>Ingreso de equipos</li>
-          </a>
-          <a href="./listado.html">
-            <li>Lista de Equipos Ingresados</li>
-          </a>
-        </ol>
-
-        
+        <h2 class="mt-5 mb-5">Selecciona tu <span class="color-indigo fw-bold">Servicio</span></h2>
+        <div class="d-flex flex-column gap-3">
+          <button class="btn bg-indigo text-white fs-3" onclick="window.location.href='./index.html'">Ingreso de equipos</button>
+          <button class="btn bg-indigo text-white fs-3" onclick="window.location.href='./listado.html'">Lista de Equipos</button>
+        </div>
+      
       </div>
       <div class="col-md-9 d-flex  flex-column divLista">
-        <!-- align-items-center -->
-        <h2 class="mt-5 mb-5 text-center">Edita o borra tu &lt;<span class="text-primary fw-bold">Usuario</span>&gt;</h2>
 
-        <div id="listado">
-          <!--  <div class="contenedor-user">
-                      <p>Nombres: Juan Camilo</p>
-                      <p>Apellidos: Torres Aspriella</p>
-                      <p>Telefono: 3233645894</p>
-                      <p>Correo: correo@correo.com</p>
-                      <p>Fecha Ingreso: correo@correo.com</p>
-                      <p>Marca celular: Nokia</p>
-                      <p>Marca celular: N91</p>
-                      <p>Modelo: Modelo XXX</p>
-                      <p>Fallos: No Prende, Se Apaga</p>
-                      <p>Diagnostico: Fuera de Garantia</p>
-                      <div class="d-flex justify-content-between">
-                        <button class="btn btn-primary fs-5 fw-bold">Editar</button>
-                        <button class="btn btn-danger fs-5 fw-bold">Eliminar</button>
-                      </div>
-                    </div>
-                    <div class="contenedor-user">
-                      <p>Nombres: Juan Camilo</p>
-                      <p>Apellidos: Torres Aspriella</p>
-                      <p>Telefono: 3233645894</p>
-                      <p>Correo: correo@correo.com</p>
-                      <p>Fecha Ingreso: correo@correo.com</p>
-                      <p>Marca celular: Nokia</p>
-                      <p>Marca celular: N91</p>
-                      <p>Modelo: Modelo XXX</p>
-                      <p>Fallos: No Prende, Se Apaga</p>
-                      <p>Diagnostico: Fuera de Garantia</p> -->
-        </div>
+        <h2 class="mt-5 mb-5 text-center">Edita o borra tu &lt;<span class="color-indigo fw-bold">Usuario</span>&gt;</h2>
+
+        <div id="listado"></div>
       </div>
     </div>
   </div>

@@ -59,7 +59,7 @@ function mostrarUsuarios(usuarios) {
         divBotones.classList.add('d-flex', 'justify-content-between');
         // Botones
         const btnEditar = document.createElement('button');
-        btnEditar.classList.add('btn', 'btn-primary', 'fs-5', 'fw-bold');
+        btnEditar.classList.add('btn', 'bg-indigo', 'fs-5', 'fw-bold', 'text-white');
         btnEditar.style.width = '80px';
         btnEditar.innerHTML = 'Editar';
         btnEditar.setAttribute('data-target', `#editar${i}`);
@@ -126,7 +126,7 @@ function mostrarUsuarios(usuarios) {
                                 <option value="No Reproduce Fallo">No Reproduce Fallo 'Devuelto al cliente'</option>
                                 </select>
                             </div>
-                            <button id="submitEditar-${i}" type="submit" class="btn btn-primary w-100 mt-4 mb-2">Editar en sistema</button>
+                            <button id="submitEditar-${i}" type="submit" class="btn bg-indigo text-white w-100 mt-4 mb-2">Editar en sistema</button>
                             <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Cancelar Cambios</button>
                             <div id="divError"></div>
                         </form>
@@ -140,7 +140,7 @@ function mostrarUsuarios(usuarios) {
 
         // Boton Eliminar
         const btnEliminar = document.createElement('button');
-        btnEliminar.classList.add('btn', 'btn-danger', 'fs-5', 'fw-bold');
+        btnEliminar.classList.add('btn', 'btn-danger', 'fs-5', 'fw-bold', 'redondeado');
         btnEliminar.style.width = '80px';
         btnEliminar.innerHTML = 'Eliminar';
         btnEliminar.addEventListener('click', construccion);
@@ -181,9 +181,7 @@ function mostrarUsuarios(usuarios) {
             e.preventDefault();
 
             if (validarVacios([nuevoName.value, nuevoApellido.value, nuevoTelefono.value, nuevoCorreo.value, nuevoFecha.value, nuevaMarca.value, nuevoModelo.value, nuevoFallos.value, nuevoDiagnostico.value])) {
-                return mostrarError(
-                    '<p class="text-danger">Todos los campos son obligatorios!</p>'
-                )
+                return mostrarError('<p class="text-danger">Todos los campos son obligatorios!!</p>');
             }
 
             const arrFallos = nuevoFallos.value
@@ -221,7 +219,6 @@ function addUserArray (usuarios, usuarioNuevo) {
     nuevosUsuarios = [usuarioNuevo, ...nuevosUsuarios];
 
     asignarUserNewLS(nuevosUsuarios);
-    
 }
 
 

@@ -1,4 +1,4 @@
-import {construccion, validarVacios, mostrarError} from './funciones.js';
+import {construccion, validarVacios, mostrarError, mostrarSuccess} from './funciones.js';
 
 // Variables
 const form = document.querySelector('#form');
@@ -17,7 +17,7 @@ function domCargado() {
 }
 
 function validar(e) { //Funcion ppal del Form
-    e.preventDefault();
+    e.preventDefault(); // evita que se recargue la pagina
 
     const nombre = document.querySelector('#nombre').value;
     const apellido = document.querySelector('#apellido').value;
@@ -30,24 +30,12 @@ function validar(e) { //Funcion ppal del Form
     const diagnostico = document.querySelector('#diagnostico').value;
     const error = document.querySelector('.error');
 
-    if (
-        validarVacios([
-            nombre,
-            apellido,
-            telefono,
-            correo,
-            fecha,
-            marca,
-            modelo,
-            fallos,
-            diagnostico,
-        ])
-    ) {
-        return mostrarError(
-            '<p class="text-danger">Todos los campos son obligatorios!</p>'
-        );
-    }
+    // si hay campos vacios en el array lanza la function mostrarError
+    if (validarVacios([nombre,apellido,telefono,correo,fecha,marca,modelo,fallos,diagnostico,])) {
+        return mostrarError('<p class="text-danger">Todos los campos son obligatorios!</p>')
+    } 
 
+    // formatea el arrFallos
     const arrFallos = fallos
         .split(',')
         .map((elem) => elem.toLowerCase().trim());
@@ -72,22 +60,9 @@ function validar(e) { //Funcion ppal del Form
 function generarID(){
     return new Date().getTime();
 }
-
-/* function validarVacios(arr) { //validar que no haya campos vacios
-    return arr.includes('') ? true : false;
-} */
-
-function mostrarSuccess(form) { //si se ingreso correctamente
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: '<p class="text-success">Usuario Añadido a la base de datos con exito!</p>',
-        showConfirmButton: false,
-        timer: 2000,
-    });
-    form.reset();
-}
-
+/* 
+mostrarSuccess(form) //si se ingreso correctamente
+ */
 function sumarUsuarios(usuario) {
     usuarios = [usuario, ...usuarios];
 

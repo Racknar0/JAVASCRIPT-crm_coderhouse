@@ -9,6 +9,22 @@ html {
     font-family: 'Montserrat', sans-serif !important;
   }
 
+  .bg-indigo{
+    background-color:#4b0082;
+    border-radius: 10px;
+  }
+
+  .color-indigo{
+    color:#4b0082;
+  }
+
+  .contenedor-full{
+    border: 2px solid #4b0082;
+    border-radius: 10px;
+    margin: 1rem;
+    padding: 3rem;
+  }
+
   .formularioIngreso{
     border-radius: 2rem;
     width: 100%;
@@ -103,6 +119,6 @@ html {
     font-weight: bold;
   }
 
-
-
-  
+  .redondeado {
+    border-radius: 10px;
+  }

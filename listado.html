@@ -26,6 +26,9 @@
   <link rel="stylesheet" href="/styles/style.css">
   <!-- sweetalert2 -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- atomiks -->
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
 
   <title>CRM</title>
 </head>
@@ -40,8 +43,8 @@
       <div class="col-md-3 border-bottom pb-5">
         <h2 class="mt-5 mb-5">Selecciona tu <span class="color-indigo fw-bold">Servicio</span></h2>
         <div class="d-flex flex-column gap-3">
-          <button class="btn bg-indigo text-white fs-3" onclick="window.location.href='./index.html'">Ingreso de equipos</button>
-          <button class="btn bg-indigo text-white fs-3" onclick="window.location.href='./listado.html'">Lista de Equipos</button>
+          <button id="btnLinkIngreso" class="btn bg-indigo text-white fs-3" onclick="window.location.href='./index.html'">Ingreso de equipos</button>
+          <button id="btnLinkListado" class="btn bg-indigo text-white fs-3" onclick="window.location.href='./listado.html'">Lista de Equipos</button>
         </div>
       
       </div>

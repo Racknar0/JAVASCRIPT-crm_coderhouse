@@ -238,3 +238,12 @@ function asignarUserNewLS(usuarios){
      }, 1500);
     
 };
+
+
+tippy(btnLinkIngreso, {
+    content: "Ingresa tus equipos aqui",
+  });
+
+tippy(btnLinkListado, {
+    content: "Cuantos equipos se han ingresado?",
+  });

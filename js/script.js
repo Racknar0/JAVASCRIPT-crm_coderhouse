@@ -82,3 +82,11 @@ function asignarAlLocalStorage(usuarios, usuario) {
     }
 }
 
+
+tippy(btnLinkIngreso, {
+    content: "Ingresa tus equipos aqui",
+  });
+
+tippy(btnLinkListado, {
+    content: "Cuantos equipos se han ingresado?",
+  });

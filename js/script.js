@@ -11,6 +11,31 @@ console.log(usuariosLSC); */
 //evento dom content loaded
 document.addEventListener('DOMContentLoaded', domCargado);
 
+/*     fetch('https://picsum.photos/1920/1080?grayscale&blur=1')
+        .then(res => res.json())
+        .then(res => {console.log(res)}) */
+
+
+fetch('https://picsum.photos/v2/list?page=2&limit=10')
+.then(res => res.json())
+.then(res => {
+    bgBody(res);
+})
+.catch(err => console.log(err));
+        
+
+const bgBody = (res) => {
+    let body = document.querySelector('body');
+
+    console.log(res);
+    body.style.backgroundImage = `url(${res[random(1, res.length)].download_url}?grayscale&blur=2)`;
+    body.style.backgroundSize = 'cover';
+    body.style.backgroundRepeat = 'no-repeat';
+    body.style.backgroundPosition = 'center';
+    body.style.backgroundAttachment = 'fixed';
+}
+        
+
 //Funciones
 function domCargado() {
     form.addEventListener('submit', validar);
@@ -82,6 +107,10 @@ function asignarAlLocalStorage(usuarios, usuario) {
     }
 }
 
+function random(min, max) {
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+}
+
 
 tippy(btnLinkIngreso, {
     content: "Ingresa tus equipos aqui",
@@ -90,3 +119,5 @@ tippy(btnLinkIngreso, {
 tippy(btnLinkListado, {
     content: "Cuantos equipos se han ingresado?",
   });
+
+

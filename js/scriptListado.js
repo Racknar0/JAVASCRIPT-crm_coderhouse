@@ -3,6 +3,7 @@ import {construccion, validarVacios, mostrarError} from './funciones.js';
 // Variables
 const listado = document.querySelector('#listado');
 
+
 let usuariosLS = localStorage.getItem('usuarios');
 if (usuariosLS === null || usuariosLS === undefined) {
     noHayUsuarios('No hay usuarios registrados');
@@ -10,6 +11,28 @@ if (usuariosLS === null || usuariosLS === undefined) {
     let usuarios = JSON.parse(usuariosLS);
     mostrarUsuarios(usuarios);
 }
+
+
+
+fetch('https://picsum.photos/v2/list?page=2&limit=10')
+.then(res => res.json())
+.then(res => {
+    bgBody(res);
+})
+.catch(err => console.log(err));
+        
+
+const bgBody = (res) => {
+    let body = document.querySelector('body');
+
+    console.log(res);
+    body.style.backgroundImage = `url(${res[random(1, res.length)].download_url}?grayscale&blur=2)`;
+    body.style.backgroundSize = 'cover';
+    body.style.backgroundRepeat = 'no-repeat';
+    body.style.backgroundPosition = 'center';
+    body.style.backgroundAttachment = 'fixed';
+}
+
 
 // Funciones
 function noHayUsuarios(mensaje) {
@@ -238,6 +261,10 @@ function asignarUserNewLS(usuarios){
      }, 1500);
     
 };
+
+function random(min, max) {
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+}
 
 
 tippy(btnLinkIngreso, {

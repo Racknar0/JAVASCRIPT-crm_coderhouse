@@ -12,8 +12,6 @@ if (usuariosLS === null || usuariosLS === undefined) {
     mostrarUsuarios(usuarios);
 }
 
-
-
 fetch('https://picsum.photos/v2/list?page=2&limit=10')
 .then(res => res.json())
 .then(res => {

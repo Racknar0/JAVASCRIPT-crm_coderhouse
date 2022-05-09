@@ -11,11 +11,6 @@ console.log(usuariosLSC); */
 //evento dom content loaded
 document.addEventListener('DOMContentLoaded', domCargado);
 
-/*     fetch('https://picsum.photos/1920/1080?grayscale&blur=1')
-        .then(res => res.json())
-        .then(res => {console.log(res)}) */
-
-
 fetch('https://picsum.photos/v2/list?page=2&limit=10')
 .then(res => res.json())
 .then(res => {
@@ -25,7 +20,6 @@ fetch('https://picsum.photos/v2/list?page=2&limit=10')
         
 
 const bgBody = (res) => {
-    console.log(res);
     let body = document.querySelector('body');
     body.style.backgroundImage = `url(${res[random(1, res.length - 1)].download_url}?grayscale&blur=2)`;
     body.style.backgroundSize = 'cover';

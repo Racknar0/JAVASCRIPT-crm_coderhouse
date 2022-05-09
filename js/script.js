@@ -25,10 +25,9 @@ fetch('https://picsum.photos/v2/list?page=2&limit=10')
         
 
 const bgBody = (res) => {
-    let body = document.querySelector('body');
-
     console.log(res);
-    body.style.backgroundImage = `url(${res[random(1, res.length)].download_url}?grayscale&blur=2)`;
+    let body = document.querySelector('body');
+    body.style.backgroundImage = `url(${res[random(1, res.length - 1)].download_url}?grayscale&blur=2)`;
     body.style.backgroundSize = 'cover';
     body.style.backgroundRepeat = 'no-repeat';
     body.style.backgroundPosition = 'center';

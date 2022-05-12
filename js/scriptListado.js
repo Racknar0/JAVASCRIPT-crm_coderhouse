@@ -5,7 +5,7 @@ const listado = document.querySelector('#listado');
 
 
 let usuariosLS = localStorage.getItem('usuarios');
-if (usuariosLS === null || usuariosLS === undefined) {
+if (usuariosLS === null || usuariosLS === undefined || usuariosLS === '' || usuariosLS === '[]') {
     noHayUsuarios('No hay usuarios registrados');
 } else {
     let usuarios = JSON.parse(usuariosLS);
@@ -162,7 +162,9 @@ function mostrarUsuarios(usuarios) {
         btnEliminar.classList.add('btn', 'btn-danger', 'fs-5', 'fw-bold', 'redondeado');
         btnEliminar.style.width = '80px';
         btnEliminar.innerHTML = 'Eliminar';
-        btnEliminar.addEventListener('click', construccion);
+        btnEliminar.addEventListener('click', () => {
+            eliminarUsuario(usuario.id);
+        });
 
         divBotones.appendChild(btnEditar);
         divBotones.appendChild(btnEliminar);
@@ -230,6 +232,26 @@ function mostrarUsuarios(usuarios) {
         
     });
 }
+
+function eliminarUsuario(id) {
+    let usuarios = JSON.parse(usuariosLS);
+    const usuariosFilter = usuarios.filter((usuario) => usuario.id !== id);
+    console.log(usuariosFilter);
+    localStorage.setItem('usuarios', JSON.stringify(usuariosFilter))
+
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario eliminado con exito!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+
+      setTimeout(() => {
+        window.location.reload();
+     }, 1500);
+}
+
 
 
 function addUserArray (usuarios, usuarioNuevo) {

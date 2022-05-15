@@ -163,7 +163,8 @@ function mostrarUsuarios(usuarios) {
         btnEliminar.style.width = '80px';
         btnEliminar.innerHTML = 'Eliminar';
         btnEliminar.addEventListener('click', () => {
-            eliminarUsuario(usuario.id);
+            /* eliminarUsuario(usuario.id) */
+            console.log('Eliminando');;
         });
 
         divBotones.appendChild(btnEditar);
@@ -233,7 +234,7 @@ function mostrarUsuarios(usuarios) {
     });
 }
 
-function eliminarUsuario(id) {
+/* function eliminarUsuario(id) {
     let usuarios = JSON.parse(usuariosLS);
     const usuariosFilter = usuarios.filter((usuario) => usuario.id !== id);
     console.log(usuariosFilter);
@@ -251,7 +252,7 @@ function eliminarUsuario(id) {
         window.location.reload();
      }, 1500);
 }
-
+ */
 
 
 function addUserArray (usuarios, usuarioNuevo) {
